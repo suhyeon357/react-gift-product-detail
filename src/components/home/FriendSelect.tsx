@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import styled from '@emotion/styled';
+import { useAuth } from '../../contexts/AuthContext';
 
 const FriendBox = styled.div`
   background-color: ${({ theme }) => theme.colors.gray00};
@@ -29,12 +30,25 @@ const Background = styled.div`
 `;
 
 export const FriendSelect = () => {
+  const { userInfo, isAuthenticated } = useAuth();
+
   return (
-    <Background>
-      <FriendBox>
-        <AddButton>+</AddButton>
-        선물할 친구를 선택해 주세요.
-      </FriendBox>
-    </Background>
+    <div>
+      {isAuthenticated ? (
+        <Background>
+          <FriendBox>
+            <AddButton>+</AddButton>
+            {userInfo?.name}님! 선물할 친구를 선택해 주세요.
+          </FriendBox>
+        </Background>
+      ) : (
+        <Background>
+          <FriendBox>
+            <AddButton>+</AddButton>
+            선물할 친구를 선택해 주세요.
+          </FriendBox>
+        </Background>
+      )}
+    </div>
   );
 };
