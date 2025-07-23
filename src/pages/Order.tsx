@@ -223,7 +223,9 @@ const Order = () => {
     0
   );
 
-  const priceSum = product?.price ? product.price * totalQuantity : 0;
+  const priceSum = product?.price
+    ? product.price.sellingPrice * totalQuantity
+    : 0;
 
   const { userInfo } = useAuth();
 
@@ -398,7 +400,9 @@ const Order = () => {
             />
             <div>
               <div style={{ fontWeight: 'bold' }}>{product.name}</div>
-              <div style={{ color: '#888' }}>{product.brandName}</div>
+              <div style={{ color: '#888' }}>
+                {product.brandInfo.name}
+              </div>
               <div>
                 상품가{' '}
                 <strong>
