@@ -194,6 +194,14 @@ const QuantityCell = styled(TableCell)`
   text-align: center;
 `;
 
+const ReceiverSection = styled.div`
+  border: 1px solid #eee;
+  padding: 24px;
+  margin-top: 12px;
+  color: #aaa;
+  text-align: center;
+`;
+
 const Order = () => {
   const { id } = useParams<{ id: string }>();
   const productId = Number(id);
@@ -351,18 +359,10 @@ const Order = () => {
             </ReceiverAddButton>
           </Row>
           {receiverList.length === 0 ? (
-            <div
-              style={{
-                border: '1px solid #eee',
-                padding: '24px',
-                marginTop: '12px',
-                color: '#aaa',
-                textAlign: 'center',
-              }}
-            >
+            <ReceiverSection>
               받는 사람이 없습니다. <br />
               받는 사람을 추가해주세요.
-            </div>
+            </ReceiverSection>
           ) : (
             <ul>
               <ReceiverTable>
