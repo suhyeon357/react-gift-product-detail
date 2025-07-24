@@ -32,7 +32,10 @@ export const useGiftProductById = (id: number) => {
 
   useEffect(() => {
     if (query.isError) {
-      toast.error(query.error?.message || '알 수 없는 오류');
+      toast.error(
+        query.error?.message ||
+          '예기치 못한 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'
+      );
       navigate('/', { replace: true });
     }
   }, [query.isError, query.error, navigate]);
