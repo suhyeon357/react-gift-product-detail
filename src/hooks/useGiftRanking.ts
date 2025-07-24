@@ -1,24 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import type { GiftItem } from '../types/GiftItem';
-import { queryKeys } from '../constants/queryKeys';
-
-const BASE_URL = 'http://localhost:3000';
-
-const fetchGiftRanking = async (
-  filter: string,
-  tab: string
-): Promise<GiftItem[]> => {
-  const res = await fetch(
-    `${BASE_URL}/api/products/ranking?filter=${filter}&tab=${tab}`
-  );
-  if (!res.ok) throw new Error('데이터 불러오기 실패');
-  const json = await res.json();
-  return json.data;
-};
+import { giftRankingQueryOptions } from '../query/queryOptions';
 
 export const useGiftRanking = (filter: string, tab: string) => {
-  return useQuery<GiftItem[], Error>({
-    queryKey: queryKeys.giftRanking(filter, tab),
-    queryFn: () => fetchGiftRanking(filter, tab),
-  });
+  return useQuery<GiftItem[], Error>(
+    giftRankingQueryOptions(filter, tab)
+  );
 };

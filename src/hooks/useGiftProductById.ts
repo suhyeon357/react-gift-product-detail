@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import type { GiftItem } from '../types/GiftItem';
 import { useEffect } from 'react';
-import { queryKeys } from '../constants/queryKeys';
+import { giftProductQueryOptions } from '../query/queryOptions';
 
 const BASE_URL = 'http://localhost:3000';
 
@@ -26,11 +26,9 @@ export const fetchGiftProductById = async (
 export const useGiftProductById = (id: number) => {
   const navigate = useNavigate();
 
-  const query = useQuery<GiftItem, Error>({
-    queryKey: queryKeys.giftProduct(id),
-    queryFn: () => fetchGiftProductById(id),
-    enabled: !!id,
-  });
+  const query = useQuery<GiftItem, Error>(
+    giftProductQueryOptions(id)
+  );
 
   useEffect(() => {
     if (query.isError) {
