@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import type { GiftItem } from '../types/GiftItem';
+import { queryKeys } from '../constants/queryKeys';
 
 const BASE_URL = 'http://localhost:3000';
 
@@ -17,7 +18,7 @@ const fetchGiftRanking = async (
 
 export const useGiftRanking = (filter: string, tab: string) => {
   return useQuery<GiftItem[], Error>({
-    queryKey: ['giftRanking', filter, tab],
+    queryKey: queryKeys.giftRanking(filter, tab),
     queryFn: () => fetchGiftRanking(filter, tab),
   });
 };
