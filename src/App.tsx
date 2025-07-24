@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+/** @jsxImportSource @emotion/react */
+import { Global, ThemeProvider, css } from '@emotion/react';
+import { reset } from './styles/reset';
+import { theme } from './styles/theme';
+import Login from './pages/Login';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import NotFoundPage from './pages/NotFoundPage';
+import { AuthProvider } from './contexts/AuthContext';
+import MyPage from './pages/MyPage';
+import Order from './pages/Order';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ROUTES } from './constants/routes';
+import ThemeProductListPage from './pages/ThemeProductListPage';
 
-function App() {
-  const [count, setCount] = useState(0)
+const containerStyle = css`
+  max-width: 720px;
+  margin: 0 auto;
+  background-color: transparent;
+  justify-content: center;
+  align-items: center;
+`;
 
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <ThemeProvider theme={theme}>
+      <Global styles={reset} />
+      <div css={containerStyle}>
+        <AuthProvider>
+          <BrowserRouter>
+            <ToastContainer
+              position="top-right"
+              autoClose={3 * 1_000}
+            />
+            <Routes>
+              <Route path={ROUTES.HOME} element={<Home />} />
+              <Route path={ROUTES.LOGIN} element={<Login />} />
+              <Route
+                path={ROUTES.NOT_FOUND}
+                element={<NotFoundPage />}
+              />
+              <Route path={ROUTES.MY_PAGE} element={<MyPage />} />
+              <Route path={ROUTES.ORDER()} element={<Order />} />
+              <Route
+                path={ROUTES.THEME()}
+                element={<ThemeProductListPage />}
+              />
+            </Routes>
+          </BrowserRouter>
+        </AuthProvider>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    </ThemeProvider>
+  );
+};
 
-export default App
+export default App;
