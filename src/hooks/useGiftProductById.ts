@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import type { GiftItem } from '../types/GiftItem';
+import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
+import type { GiftItem } from '../types/GiftItem';
+import { useEffect } from 'react';
 
 const BASE_URL = 'http://localhost:3000';
 
@@ -20,40 +20,23 @@ export const fetchGiftProductById = async (
   }
   const data = await res.json();
   return data.data;
-
 };
 
 export const useGiftProductById = (id: number) => {
-  const [data, setData] = useState<GiftItem | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
   const navigate = useNavigate();
 
+  const query = useQuery<GiftItem, Error>({
+    queryKey: ['giftProduct', id],
+    queryFn: () => fetchGiftProductById(id),
+    enabled: !!id,
+  });
+
   useEffect(() => {
-    if (id == null) return;
+    if (query.isError) {
+      toast.error(query.error?.message || '알 수 없는 오류');
+      navigate('/', { replace: true });
+    }
+  }, [query.isError, query.error, navigate]);
 
-    const fetchProduct = async () => {
-      setLoading(true);
-      setError(null);
-      setData(null);
-
-      try {
-        const product = await fetchGiftProductById(id);
-        setData(product);
-      } catch (err: any) {
-        setError(err.message || '알 수 없는 오류');
-        toast.error(err.message);
-        navigate('/', { replace: true });
-
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProduct();
-  }, [id, navigate]);
-
-
-  return { data, loading, error };
+  return query;
 };
