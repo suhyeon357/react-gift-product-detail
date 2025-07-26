@@ -10,7 +10,7 @@ const BASE_URL = 'http://localhost:3000';
 export const fetchGiftProductById = async (
   id: number
 ): Promise<GiftItem> => {
-  const res = await fetch(`${BASE_URL}/api/products/${id}/summary`);
+  const res = await fetch(`${BASE_URL}/api/products/${id}`);
   if (!res.ok) {
     const errorText = await res.text();
     const message =

@@ -4,4 +4,6 @@ export const queryKeys = {
     ['giftRanking', filter, tab] as const,
   giftThemes: ['giftThemes'] as const,
   themeInfo: (themeId: number) => ['themeInfo', themeId] as const,
+  productInfo: (productId: number) =>
+    ['productInfo', productId] as const,
 };

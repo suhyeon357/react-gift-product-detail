@@ -96,9 +96,11 @@ export const RankingGrid = ({
 
   const handleClick = (id: number) => {
     if (isAuthenticated) {
-      navigate(`/order/${id}`);
+      navigate(`/products/${id}`);
     } else {
-      navigate('/login', { state: { redirectTo: `/order/${id}` } });
+      navigate('/login', {
+        state: { redirectTo: `/products/${id}` },
+      });
     }
   };
 
@@ -114,6 +116,7 @@ export const RankingGrid = ({
   if (products.length === 0)
     return <Container>표시할 상품이 없습니다.</Container>;
 
+  console.log(products);
   return (
     <Container>
       <Grid>

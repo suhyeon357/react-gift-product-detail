@@ -1,6 +1,6 @@
 const BASE_URL = 'http://localhost:3000';
 
-export const fetcher = async (
+export const fetcher = async <T>(
   endpoint: string,
   errorMessage: string
 ) => {

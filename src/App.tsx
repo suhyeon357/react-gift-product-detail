@@ -17,6 +17,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
+import ProductDetailInfo from './pages/ProductDetailInfo';
 
 const containerStyle = css`
   max-width: 720px;
@@ -52,6 +53,10 @@ const App = () => {
                 <Route
                   path={ROUTES.THEME()}
                   element={<ThemeProductListPage />}
+                />
+                <Route
+                  path={ROUTES.PRODUCT()}
+                  element={<ProductDetailInfo />}
                 />
               </Routes>
             </BrowserRouter>

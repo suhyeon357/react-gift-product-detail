@@ -298,20 +298,6 @@ const Order = () => {
       </div>
     );
 
-  if (isLoading)
-    return (
-      <div style={{ padding: 20 }}>
-        상품 정보를 불러오는 중입니다...
-      </div>
-    );
-
-  if (isError || !product)
-    return (
-      <div style={{ padding: 20 }}>
-        상품 정보를 불러오지 못했습니다.
-      </div>
-    );
-
   return (
     <>
       <Header />
@@ -406,8 +392,8 @@ const Order = () => {
               <div>
                 상품가{' '}
                 <strong>
-                  {product?.price !== undefined
-                    ? product.price.toLocaleString()
+                  {product?.price.sellingPrice !== undefined
+                    ? product.price.sellingPrice.toLocaleString()
                     : '0'}
                   원
                 </strong>
