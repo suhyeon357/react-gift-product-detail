@@ -5,19 +5,24 @@ export interface ProductInfo {
 }
 
 export interface ProductDetail {
-  themeId: number;
-  name: string;
-  image: string;
+  description: string;
+  announcements: {
+    name: string;
+    value: string;
+    displayOrder: number;
+  };
 }
 
 export interface ProductReview {
-  themeId: number;
-  name: string;
-  image: string;
+  totalCount: number;
+  reviews: {
+    id: string;
+    authorName: string;
+    content: string;
+  };
 }
 
 export interface ProductWish {
-  themeId: number;
-  name: string;
-  image: string;
+  wishCount: number;
+  isWished: boolean;
 }
