@@ -16,10 +16,16 @@ const ProductGrid = styled.div`
 `;
 
 const ProductCard = styled.div`
-  border: 1px solid ${({ theme }) => theme.colors.borderDefault};
+  position: relative;
+  border-radius: 8px;
+  background-color: #fff;
+  overflow: hidden;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  /* border: 1px solid ${({ theme }) => theme.colors.borderDefault};
   border-radius: 8px;
   padding: 12px;
-  background-color: white;
+  background-color: white; */
 `;
 
 const ProductImage = styled.img`
